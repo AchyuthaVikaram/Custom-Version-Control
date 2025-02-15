@@ -19,7 +19,9 @@ yargs(hideBin(process.argv))
 				type: "string",
 			});
 		},
-		add // Executes the 'add' function
+		(argv) => {
+			add(argv.file);
+		} // Executes the 'add' function
 	)
 	.command(
 		"commit <message>", // Command to commit staged files
