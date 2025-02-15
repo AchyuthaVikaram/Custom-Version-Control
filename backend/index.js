@@ -32,7 +32,9 @@ yargs(hideBin(process.argv))
 				type: "string",
 			});
 		},
-		commit // Executes the 'commit' function
+		(argv)=>{
+			commit(argv.message)
+		} // Executes the 'commit' function
 	)
 	.command("push", "Push commits to S3", {}, push) // Command to push commits to an S3 storage
 	.command("pull", "Pull commits from S3", {}, pull) // Command to pull commits from S3

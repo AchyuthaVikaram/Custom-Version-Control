@@ -10,6 +10,7 @@
   "license": "ISC",
   "description": "Custom Version Control",
   "dependencies": {
+    "uuid": "^11.0.5",
     "yargs": "^17.7.2"
   }
 }
