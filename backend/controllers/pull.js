@@ -7,35 +7,35 @@ async function pull() {
 	const commitsPath = path.join(repoPath, "commits");
 
 	try {
-		const data = await s3.listObjectsV2({ Bucket: S3_BUCKET, Prefix: "commits/" }).promise();
-		const objects = data.Contents || [];
+		const data = await s3
+			.listObjectsV2({
+				Bucket: S3_BUCKET,
+				Prefix: "commits/",
+			})
+			.promise();
+
+		const objects = data.Contents;
 
 		for (const object of objects) {
-			const commitHash = object.Key.split("/")[1];
-			const commitPath = path.join(commitsPath, commitHash);
+			const key = object.Key;
+			const commitDir = path.join(
+				commitsPath,
+				path.dirname(key).split("/").pop()
+			);
 
-			try {
-				// Check if the file already exists
-				await fs.access(commitPath).catch(() => false);
+			await fs.mkdir(commitDir, { recursive: true });
 
-				// Fetch the object from S3
-				const fileContent = await s3.getObject({ Bucket: S3_BUCKET, Key: object.Key }).promise();
+			const params = {
+				Bucket: S3_BUCKET,
+				Key: key,
+			};
 
-				// Ensure the directory exists before writing the file
-				await fs.mkdir(path.dirname(commitPath), { recursive: true });
-
-				// Write file
-				await fs.writeFile(commitPath, fileContent.Body);
-
-				console.log(`Pulled: ${commitHash}`);
-			} catch (fileError) {
-				console.error(`Error processing commit ${commitHash}:`, fileError);
-			}
+			const fileContent = await s3.getObject(params).promise();
+			await fs.writeFile(path.join(repoPath, key), fileContent.Body);
 		}
-
-		console.log("All objects pulled from S3.");
-	} catch (error) {
-		console.error("Error while pulling from S3:", error);
+		console.log("All commits pulled from S3.");
+	} catch (err) {
+		console.error("Unable to pull : ", err);
 	}
 }
 

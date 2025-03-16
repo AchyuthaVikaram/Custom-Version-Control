@@ -47,7 +47,9 @@ yargs(hideBin(process.argv))
 				type: "string",
 			});
 		},
-		revert // Executes the 'revert' function
+		(argv)=>(
+			revert(argv.commitID) // Executes the 'revert' function
+		)
 	)
 	.demandCommand(1, "You need at least one command") // Ensures at least one command is provided
 	.help().argv; // Enables help documentation for command usage
