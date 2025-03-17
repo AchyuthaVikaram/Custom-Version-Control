@@ -5,6 +5,7 @@ const dotenv = require("dotenv");
 const bodyParser = require("body-parser");
 const http = require("http");
 const { Server } = require("socket.io");
+const Router = require("./routers/main.route");
 
 dotenv.config();
 
@@ -16,7 +17,6 @@ const { commit } = require("./controllers/commit");
 const { pull } = require("./controllers/pull");
 const { push } = require("./controllers/push");
 const { revert } = require("./controllers/revert");
-const { debugPort } = require("process");
 
 // Configuring yargs to handle different commands
 yargs(hideBin(process.argv))
@@ -83,9 +83,7 @@ function startServer() {
 			console.log("Error occured while connecting to mongoDb", err);
 		});
 
-	app.get("/", (req, res) => {
-		console.log("Welocme!!");
-	});
+	app.use("/", Router);
 
 	const httpServer = http.createServer(app);
 	const io = new Server(httpServer, {
