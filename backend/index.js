@@ -1,3 +1,13 @@
+const express = require("express");
+const cors = require("cors");
+const mongoose = require("mongoose");
+const dotenv = require("dotenv");
+const bodyParser = require("body-parser");
+const http = require("http");
+const { Server } = require("socket.io");
+
+dotenv.config();
+
 const yargs = require("yargs"); // Importing yargs, an npm package used for handling command-line arguments
 const { hideBin } = require("yargs/helpers"); // Extracts the actual command from the process arguments
 const { init } = require("./controllers/init");
@@ -6,9 +16,11 @@ const { commit } = require("./controllers/commit");
 const { pull } = require("./controllers/pull");
 const { push } = require("./controllers/push");
 const { revert } = require("./controllers/revert");
+const { debugPort } = require("process");
 
 // Configuring yargs to handle different commands
 yargs(hideBin(process.argv))
+	.command("start", "starts a new server", {}, startServer)
 	.command("init", "Initialise a new repository", {}, init) // Define 'init' command to initialize a new repository
 	.command(
 		"add <file>", // Command to add a file to staging
@@ -32,8 +44,8 @@ yargs(hideBin(process.argv))
 				type: "string",
 			});
 		},
-		(argv)=>{
-			commit(argv.message)
+		(argv) => {
+			commit(argv.message);
 		} // Executes the 'commit' function
 	)
 	.command("push", "Push commits to S3", {}, push) // Command to push commits to an S3 storage
@@ -47,9 +59,61 @@ yargs(hideBin(process.argv))
 				type: "string",
 			});
 		},
-		(argv)=>(
-			revert(argv.commitID) // Executes the 'revert' function
-		)
+		(argv) => revert(argv.commitID) // Executes the 'revert' function
 	)
 	.demandCommand(1, "You need at least one command") // Ensures at least one command is provided
 	.help().argv; // Enables help documentation for command usage
+
+function startServer() {
+	const app = express();
+	const port = process.env.PORT || 3000;
+
+	app.use(bodyParser.json());
+	app.use(express.json());
+	app.use(cors({ origin: "*" }));
+
+	const mongourl = process.env.MONGODB_URL;
+
+	mongoose
+		.connect(mongourl)
+		.then(() => {
+			console.log("MongoDB Connected");
+		})
+		.catch((err) => {
+			console.log("Error occured while connecting to mongoDb", err);
+		});
+
+	app.get("/", (req, res) => {
+		console.log("Welocme!!");
+	});
+
+	const httpServer = http.createServer(app);
+	const io = new Server(httpServer, {
+		cors: {
+			origin: "*",
+			methods: ["GET", "POST"],
+		},
+	});
+
+	io.on("connection", (socket) => {
+		console.log(`socket ${socket.id} connected`);
+
+		socket.on("joinRoom", (userID) => {
+			const user = userId;
+			console.log("=============");
+			console.log(user);
+			console.log("=============");
+			socket.join(userID);
+		});
+	});
+	const db = mongoose.connection;
+
+	db.once("open", async () => {
+		console.log("AllCRUD Operations callled");
+		//CRUD Operations
+	});
+
+	httpServer.listen(port, () => {
+		console.log(`server is running on ${port}`);
+	});
+}
