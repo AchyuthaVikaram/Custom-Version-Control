@@ -83,25 +83,94 @@ const login = async (req, res) => {
 			userId: user._id,
 		});
 	} catch (error) {
-		console.log(e);
+		console.log(error);
 		return res.status(500).json({
 			message: "An error occurred during login",
 		});
 	}
 };
-const getALlUsers = (req, res) => {
-	res.send("ALl users fetched");
+const getALlUsers = async (req, res) => {
+	try {
+		const users = await User.find({});
+		return res
+			.status(200)
+			.json({ message: "All users fetched successfully", users });
+	} catch (error) {
+		console.log(error);
+		return res.status(500).json({
+			message: "Server Error",
+		});
+	}
 };
 
-const getUserProfie = (req, res) => {
-	res.send("User profile fetched");
+const getUserProfie = async (req, res) => {
+	try {
+		const userId = req.params.id;
+		const user = await User.findById(userId);
+		if (!user) {
+			return res.status(404).json({
+				message: "User not found",
+			});
+		}
+		return res.status(200).json({
+			message: "User profile fetched successfully",
+			user,
+		});
+	} catch (error) {
+		console.log(error);
+		return res.status(500).json({
+			message: "Server Error",
+		});
+	}
 };
 
-const updateUserProfile = (req, res) => {
-	res.send("User Profile updated");
+const updateUserProfile = async (req, res) => {
+	try {
+		const userId = req.params.id;
+		const user = await User.findById(userId);
+		if (!user) {
+			return res.status(404).json({
+				message: "User not found",
+			});
+		}
+		const { email, password } = req.body;
+		const updatedData = {};
+		if (email) updatedData.email = email;
+		if (password) {
+			const hashPass = await bcrypt.hash(password, 15);
+			updatedData.password = hashPass;
+		}
+		Object.assign(user, updatedData);
+		await user.save();
+		return res
+			.status(200)
+			.json({ message: "Profile updated successfully", user });
+	} catch (error) {
+		console.log(error);
+		return res.status(500).json({
+			message: "Server Error",
+		});
+	}
 };
-const deleteUserProfile = (req, res) => {
-	res.send("User Profile deleted");
+const deleteUserProfile = async (req, res) => {
+	try {
+		const userId = req.params.id;
+		const user = await User.findById(userId);
+		if (!user) {
+			return res.status(404).json({
+				message: "User not found",
+			});
+		}
+		await User.findByIdAndDelete(userId);
+		return res.status(200).json({
+			message: "User deleted successfully",
+		});
+	} catch (error) {
+		console.log(error);
+		return res.status(500).json({
+			message: "Server Error",
+		});
+	}
 };
 
 module.exports = {
