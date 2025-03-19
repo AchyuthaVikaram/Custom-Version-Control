@@ -9,7 +9,6 @@ const RepositorySchema = new Schema({
 	},
 	description: {
 		type: String,
-		unique: true,
 	},
 	content: [
 		{
