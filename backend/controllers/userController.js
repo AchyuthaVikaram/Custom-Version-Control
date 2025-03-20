@@ -43,6 +43,7 @@ const signup = async (req, res) => {
 		return res.status(200).json({
 			message: "User registered successfully",
 			token,
+			userId: user._id,
 		});
 	} catch (e) {
 		console.log(e);

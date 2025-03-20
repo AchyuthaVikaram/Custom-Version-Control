@@ -1,33 +1,34 @@
-import React, { useState } from "react";
-import axios from "axios";
-import { useAuth } from "../../authContext";
+import React, { useState, useEffect } from "react";
+
 import { Heading } from "@primer/react";
 import { Box, Button } from "@primer/react";
 import "./auth.css";
 
 import logo from "../../assets/github-mark-white.svg";
 import { Link } from "react-router-dom";
+import { useAuth } from "../../authContext";
 import BASE_URL from "../../constant";
+import axios from "axios";
 
-const Signup = () => {
-	const [email, setEmail] = useState("");
-	const [username, setUsername] = useState("");
-	const [password, setPassword] = useState("");
+const Login = () => {
+	useEffect(() => {
+		if (localStorage.getItem("userId")) window.location.href = "/";
+	}, []);
+
 	const [loading, setLoading] = useState(false);
-
+	const [email, setEmail] = useState("");
+	const [password, setPassword] = useState("");
 	const { setCurrUser } = useAuth();
 
-	const handleSignup = async (e) => {
+	const handleLogin = async (e) => {
 		e.preventDefault();
 
 		try {
 			setLoading(true);
-			const res = await axios.post(`${BASE_URL}/signup`, {
+			const res = await axios.post(`${BASE_URL}/login`, {
 				email: email,
 				password: password,
-				username: username,
 			});
-
 			console.log(res);
 			localStorage.setItem("token", res.data.token);
 			localStorage.setItem("userId", res.data.userId);
@@ -52,47 +53,36 @@ const Signup = () => {
 			<div className="login-box-wrapper">
 				<div className="login-heading">
 					<Box sx={{ padding: 1 }}>
-						<Heading as="h6">Signup</Heading>
+						<Heading as="h6">Login</Heading>
 					</Box>
 				</div>
-
 				<div className="login-box">
-					<div>
-						<label className="label">Username</label>
-						<input
-							autoComplete="off"
-							name="Username"
-							id="Username"
-							className="input"
-							type="text"
-							value={username}
-							onChange={(e) => setUsername(e.target.value)}
-						/>
-					</div>
-
 					<div>
 						<label className="label">Email address</label>
 						<input
 							autoComplete="off"
-							name="Email"
+							name="email"
 							id="Email"
 							className="input"
 							type="email"
 							value={email}
-							onChange={(e) => setEmail(e.target.value)}
+							onChange={(e) => {
+								setEmail(e.target.value);
+							}}
 						/>
 					</div>
-
 					<div className="div">
 						<label className="label">Password</label>
 						<input
 							autoComplete="off"
-							name="Password"
+							name="password"
 							id="Password"
 							className="input"
 							type="password"
 							value={password}
-							onChange={(e) => setPassword(e.target.value)}
+							onChange={(e) => {
+								setPassword(e.target.value);
+							}}
 						/>
 					</div>
 
@@ -100,15 +90,14 @@ const Signup = () => {
 						variant="primary"
 						className="login-btn"
 						disabled={loading}
-						onClick={handleSignup}
+						onClick={handleLogin}
 					>
-						{loading ? "Loading..." : "Signup"}
+						{loading ? "Loading..." : "Login"}
 					</Button>
 				</div>
-
 				<div className="pass-box">
 					<p>
-						Already have an account? <Link to="/auth">Login</Link>
+						New to GitHub? <Link to="/signup">Create an account</Link>
 					</p>
 				</div>
 			</div>
@@ -116,4 +105,4 @@ const Signup = () => {
 	);
 };
 
-export default Signup;
+export default Login;
