@@ -100,11 +100,13 @@ const getRepositoryByName = async (req, res) => {
 
 const fetchRepositoryForCurrUser = async (req, res) => {
 	try {
-		const userId = req.user;
+		const {userId} = req.params;
+		console.log(userId);
 		// if (!mongoose.Types.ObjectId.isValid(userId)) {
 		// 	return res.status(400).json({ message: "Invalid repository id" });
 		// }
 		const user = await User.findById(userId);
+		
 		if (!user) return res.status(404).json({ message: "User not found" });
 
 		const repos = await Repository.find({ owner: userId })

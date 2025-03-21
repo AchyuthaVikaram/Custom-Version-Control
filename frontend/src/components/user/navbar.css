@@ -1,0 +1,164 @@
+/* Navbar Styling */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #0d1117;
+  padding: 10px 20px;
+  border-bottom: 1px solid #30363d;
+  position: relative;
+}
+
+/* Left Section */
+.nav-left {
+  display: flex;
+  align-items: center;
+}
+
+.menu-btn {
+  background: none;
+  border: none;
+  color: white;
+  cursor: pointer;
+  margin-right: 10px;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: white;
+}
+
+.logo span {
+  margin-left: 8px;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+/* Middle Section - Search Box */
+.nav-middle {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+}
+
+.search-box {
+  display: flex;
+  align-items: center;
+  background-color: #161b22;
+  border: 1px solid #30363d;
+  border-radius: 6px;
+  padding: 5px 10px;
+  color: #8b949e;
+}
+
+.search-box input {
+  background: transparent;
+  border: none;
+  color: white;
+  margin-left: 8px;
+  outline: none;
+}
+
+/* Right Section */
+.nav-right {
+  display: flex;
+  align-items: center;
+}
+
+.icon-btn {
+  background: none;
+  border: 1px solid #8b949e;
+  border-radius: 6px;
+  padding: 5px;
+  color: white;
+  cursor: pointer;
+  margin-left: 10px;
+}
+
+.profile-btn {
+  background: none;
+  border: none;
+  color: white;
+  cursor: pointer;
+  margin-left: 10px;
+}
+
+.icon-btn:hover {
+  background-color: #21262d;
+}
+
+/* Left Sidebar */
+.left-panel {
+  position: absolute;
+  top: 60px;
+  left: 0;
+  background: #161b22;
+  width: 200px;
+  padding: 10px;
+  border: 1px solid #30363d;
+  border-radius: 6px;
+}
+
+.left-panel ul {
+  list-style: none;
+  padding: 0;
+}
+
+.left-panel ul li {
+  padding: 10px;
+}
+
+.left-panel ul li a,
+.left-panel ul li button {
+  color: white;
+  text-decoration: none;
+  width: 100%;
+  display: block;
+  background: none;
+  border: none;
+  text-align: left;
+  cursor: pointer;
+}
+
+.left-panel ul li:hover {
+  background-color: #21262d;
+}
+
+/* Right Sidebar */
+.right-panel {
+  position: absolute;
+  top: 60px;
+  right: 0;
+  background: #161b22;
+  width: 200px;
+  padding: 10px;
+  border: 1px solid #30363d;
+  border-radius: 6px;
+}
+
+.right-panel ul {
+  list-style: none;
+  padding: 0;
+}
+
+.right-panel ul li {
+  padding: 10px;
+}
+
+.right-panel ul li a,
+.right-panel ul li button {
+  color: white;
+  text-decoration: none;
+  width: 100%;
+  display: block;
+  background: none;
+  border: none;
+  text-align: left;
+  cursor: pointer;
+}
+
+.right-panel ul li:hover {
+  background-color: #21262d;
+}

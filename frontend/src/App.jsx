@@ -4,6 +4,7 @@ import Login from "./components/auth/Login";
 import Signup from "./components/auth/Signup";
 import { useAuth } from "./authContext";
 import Dashboard from "./components/dashboard/Dashboard";
+import Profile from "./components/user/Profile";
 
 function AuthHandler() {
 	const { currUser, setCurrUser } = useAuth();
@@ -14,7 +15,10 @@ function AuthHandler() {
 		if (userIdFromStorage && !currUser) {
 			setCurrUser(userIdFromStorage);
 		}
-		if (!userIdFromStorage && !["/auth", "/signup"].includes(window.location.pathname)) {
+		if (
+			!userIdFromStorage &&
+			!["/auth", "/signup"].includes(window.location.pathname)
+		) {
 			navigate("/auth");
 		}
 		if (userIdFromStorage && window.location.pathname === "/auth") {
@@ -30,9 +34,10 @@ function App() {
 		<BrowserRouter>
 			<AuthHandler />
 			<Routes>
-				<Route path="/" element={<Dashboard/>} />
+				<Route path="/" element={<Dashboard />} />
 				<Route path="/auth" element={<Login />} />
 				<Route path="/signup" element={<Signup />} />
+				<Route path="/profile" element={<Profile />} />
 			</Routes>
 		</BrowserRouter>
 	);

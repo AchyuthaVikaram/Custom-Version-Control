@@ -1,5 +1,296 @@
+/* Dark Mode Dashboard CSS */
+
+:root {
+	--bg-color: #0d1117;
+	--card-bg: #161b22;
+	--text-color: #c9d1d9;
+	--primary-color: #58a6ff;
+	--border-color: #30363d;
+	--shadow-color: rgba(255, 255, 255, 0.1);
+}
+
 #dashboard {
-    display: flex;
-    width: 1080px;
-    justify-content: space-between;
-  }
+	display: flex;
+	width: 98vw;
+	justify-content: space-between;
+	padding: 20px;
+	font-family: Arial, sans-serif;
+	background-color: var(--bg-color);
+	color: var(--text-color);
+}
+
+aside {
+	width: 25%;
+	background: var(--card-bg);
+	padding: 20px;
+	border-radius: 8px;
+	box-shadow: 0 2px 4px var(--shadow-color);
+}
+
+/* Suggested Repositories & Upcoming Events Titles */
+aside h3 {
+	font-size: 18px;
+	font-weight: bold;
+	margin-bottom: 10px;
+	color: var(--text-color);
+}
+
+/*  Upcoming Events Cards */
+aside ul li {
+	background: var(--bg-color);
+	padding: 15px;
+	border-radius: 6px;
+	margin-bottom: 10px;
+	box-shadow: 0 1px 3px var(--shadow-color);
+	border: 1px solid var(--border-color);
+}
+
+/* No border for the Upcoming Events container itself */
+aside ul {
+	padding: 0;
+	background: none;
+	box-shadow: none;
+	border: none;
+}
+
+/* Repository Name Styling */
+aside div h4 {
+	font-size: 14px;
+	color: var(--text-color);
+	margin-bottom: 5px;
+}
+
+main {
+	width: 48%;
+	background: var(--card-bg);
+	padding: 20px;
+	border-radius: 8px;
+	box-shadow: 0 2px 4px var(--shadow-color);
+	border: 1px solid var(--border-color);
+}
+
+/* Search Bar */
+
+#search input {
+	width: 100%;
+	margin-bottom: 20px;
+	padding: 10px;
+	border-radius: 6px;
+	font-size: 16px;
+	background-color: var(--bg-color);
+	color: var(--text-color);
+	border: 1px solid var(--border-color); /* Keeps the inner border */
+	outline: none; /* Removes outer focus border */
+	box-shadow: none; /* Removes extra shadow */
+	margin-bottom: 20px;
+}
+
+/* Search Input Styles */
+input[type="text"] {
+	width: 100%;
+	padding: 10px 12px;
+	border-radius: 6px;
+	font-size: 16px;
+	background-color: var(--bg-color); /* Dark background */
+	color: var(--text-color); /* Light text */
+	border: 1px solid var(--border-color); /* Subtle border */
+	outline: none; /* No default focus outline */
+	box-shadow: none; /* No extra shadow */
+	transition: all 0.2s ease-in-out;
+}
+
+/* Search Input Focus Effect */
+input[type="text"]:focus {
+	border-color: var(--primary-color); /* Highlight on focus */
+	box-shadow: 0 0 5px rgba(88, 166, 255, 0.5); /* Soft glow effect */
+}
+
+/* Placeholder Text Styling */
+input[type="text"]::placeholder {
+	color: #8b949e; /* Muted placeholder */
+	opacity: 0.7;
+}
+
+/* Repositories List */
+main div {
+	background: var(--bg-color);
+	padding: 15px;
+	border-radius: 6px;
+	margin-bottom: 10px;
+	box-shadow: 0 1px 3px var(--shadow-color);
+	border: 1px solid var(--border-color);
+}
+
+/* Repository Titles */
+main div h4 {
+	font-size: 16px;
+	color: var(--primary-color);
+	margin-bottom: 5px;
+	cursor: pointer;
+}
+
+main div h4:hover {
+	text-decoration: underline;
+}
+
+/* Upcoming Events List */
+ul {
+	list-style: none;
+	padding: 0;
+}
+
+/* Individual Upcoming Events */
+ul li {
+	background: var(--bg-color);
+	padding: 10px;
+	border-radius: 6px;
+	margin-bottom: 5px;
+	font-size: 14px;
+	box-shadow: 0 1px 3px var(--shadow-color);
+	border: 1px solid var(--border-color);
+}
+
+/* Suggested Repositories Section */
+.suggested-repos {
+	padding: 20px;
+	background: var(--bg-color);
+	border-radius: 10px;
+	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+	width: 25%;
+	background: var(--card-bg);
+	border-radius: 8px;
+	box-shadow: 0 2px 4px var(--shadow-color);
+}
+
+/* Avatar & Username */
+.profile-section {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	margin-bottom: 10px;
+}
+
+.avatar-icon {
+	font-size: 40px;
+	color: var(--primary-color);
+}
+
+.profile-section h3 {
+	font-size: 20px;
+	font-weight: bold;
+	color: var(--text-color);
+	padding-top: 10px;
+}
+
+/* Recent Title */
+.suggested-repos h4 {
+	font-size: 18px;
+	font-weight: bold;
+	margin-block: 20px;
+	color: var(--text-color);
+}
+
+/* Search Box */
+.search-box {
+	width: 100%;
+	padding: 8px;
+	border-radius: 6px;
+	border: 1px solid var(--border-color);
+	margin-bottom: 10px;
+}
+
+/* Repo List */
+.repo-list {
+	display: flex;
+	flex-direction: column;
+	gap: 3px;
+}
+
+.repo-item {
+	display: flex;
+	align-items: center;
+	padding: 5px;
+	transition: transform 0.2s;
+}
+
+.repo-item:hover {
+	transform: translateY(-2px);
+}
+
+.repo-icon {
+	font-size: 15px;
+	margin-right: 10px;
+}
+
+.repo-name {
+	font-size: 2px;
+	color: white;
+}
+
+/* Profile Section as Dropdown */
+.profile-section {
+	position: relative;
+	width: 100%;
+	cursor: pointer;
+}
+
+.profile-section:hover .profile-dropdown {
+	display: block;
+}
+
+.profile-dropdown {
+	display: none;
+	position: absolute;
+	top: 100%;
+	left: 0;
+	width: 100%;
+	background: var(--card-bg);
+	border: 1px solid var(--border-color);
+	border-radius: 6px;
+	box-shadow: 0 2px 4px var(--shadow-color);
+	z-index: 10;
+}
+
+.profile-dropdown a {
+	display: block;
+	padding: 10px;
+	color: var(--text-color);
+	text-decoration: none;
+}
+
+.profile-dropdown a:hover {
+	background: #21262d;
+}
+
+/* Avatar & Username */
+.profile-section {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	margin-bottom: 10px;
+}
+
+.avatar-icon {
+	font-size: 40px;
+	color: var(--primary-color);
+}
+
+.profile-section h3 {
+	font-size: 20px;
+	font-weight: bold;
+	color: var(--text-color);
+	padding-top: 10px;
+}
+
+@media (max-width: 768px) {
+	#dashboard {
+		flex-direction: column;
+		align-items: center;
+	}
+
+	aside,
+	main,.profile-section{
+		width: 90%;
+		margin-bottom: 20px;
+	}
+}
