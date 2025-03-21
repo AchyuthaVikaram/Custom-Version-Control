@@ -16,7 +16,7 @@ repoRouter.post(
 	repoController.createRepository
 );
 repoRouter.get(
-	"/repo/user/:userId",
+	"/repo/user/:id",
 	isAuthenticated,
 	isAuthorizedUser,
 	repoController.fetchRepositoryForCurrUser

@@ -142,7 +142,7 @@ const updateRepositoryById = async (req, res) => {
 		if (description) repo.description = description;
 		const updatedRepo = await repo.save();
 		return res.status(200).json({
-			message: `Repository ${updatedRepo.name} visibility toggeled successfully!`,
+			message: `Repository ${updatedRepo.name} updated successfully!`,
 			repo: updatedRepo,
 		});
 	} catch (error) {

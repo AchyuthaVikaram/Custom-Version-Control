@@ -10,8 +10,8 @@ const isAuthorizedUser = (req, res, next) => {
 const isRepoOwner = async (req, res, next) => {
 	const repo = await Repository.findById(req.params.id);
 	if (!repo) return res.status(404).json({ message: "Repository not found" });
-
-	if (repo.owner.toString() !== req.user.id) {
+	
+	if (repo.owner.toString() !== req.user.id.toString()) {
 		return res
 			.status(403)
 			.json({ message: "Not authorized to modify this repository" });
