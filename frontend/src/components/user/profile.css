@@ -73,7 +73,281 @@
     justify-content: space-between;
   }
   
+  .repo-name {.profile-page-wrapper {
+    display: flex;
+    min-height: 100vh;
+    color: whitesmoke;
+    width: 100%;
+    /* flex-wrap: wrap; */
+  }
+  
+  .user-profile-section {
+    width: 250px;
+    /* min-height: 100vh; */
+    display: flex;
+    flex-direction: column;
+    padding: 40px 10px;
+  }
+  
+  .user-repo-section {
+    margin: 0px auto;
+    display: flex;
+    flex-wrap: wrap;
+  }
+  
+  .user-name {
+    /* width: 250px; */
+    margin: 10px 20px 10px 10px;
+    /* margin: 10px auto; */
+  }
+  
+  .profile-image {
+    margin: 10px auto;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background-color: grey;
+  }
+  
+  .follow-btn {
+    background-color: #20272d;
+    width: 250px;
+    margin: 10px auto;
+    height: 40px;
+    border-radius: 10px;
+    color: whitesmoke;
+  }
+  
+  .follower {
+    display: flex;
+    justify-content: center;
+    width: 250px;
+    height: 30px;
+    gap: 10px;
+    margin: 10px auto;
+  }
+  
+  .repo-card-wrapper {
+    margin: 0 auto;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 20px;
+    padding: 40px 20px;
+  }
+  
+  .repo {
+    border: 0.5px solid grey;
+    border-radius: 10px;
+    width: 400px;
+    height: 210px;
+    padding: 20px 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  
   .repo-name {
+    cursor: pointer;
+    color: #408ced;
+    font-size: 20px;
+  }
+  
+  .description {
+    color: grey;
+    font-size: 15px;
+  }
+  /* Navbar Styling */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #0d1117;
+  padding: 10px 20px;
+  border-bottom: 1px solid #30363d;
+  position: relative;
+}
+
+/* Left Section */
+.nav-left {
+  display: flex;
+  align-items: center;
+}
+
+.menu-btn {
+  background: none;
+  border: none;
+  color: white;
+  cursor: pointer;
+  margin-right: 10px;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: white;
+}
+
+.logo span {
+  margin-left: 8px;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+/* Middle Section - Search Box */
+.nav-middle {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+}
+
+.search-box {
+  display: flex;
+  align-items: center;
+  background-color: #161b22;
+  border: 1px solid #30363d;
+  border-radius: 6px;
+  padding: 5px 10px;
+  color: #8b949e;
+}
+
+.search-box input {
+  background: transparent;
+  border: none;
+  color: white;
+  margin-left: 8px;
+  outline: none;
+}
+
+/* Right Section */
+.nav-right {
+  display: flex;
+  align-items: center;
+}
+
+.icon-btn {
+  background: none;
+  border: 1px solid #8b949e;
+  border-radius: 6px;
+  padding: 5px;
+  color: white;
+  cursor: pointer;
+  margin-left: 10px;
+}
+
+.profile-btn {
+  background: none;
+  border: none;
+  color: white;
+  cursor: pointer;
+  margin-left: 10px;
+}
+
+.icon-btn:hover {
+  background-color: #21262d;
+}
+
+/* Left Sidebar (Full Screen Height) */
+.left-panel {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 250px;
+  background: #0d1117;
+  padding: 20px;
+  border-right: 1px solid #30363d;
+  z-index: 100;
+}
+
+.left-panel ul {
+  list-style: none;
+  padding: 0;
+  margin-top: 50px;
+}
+
+.left-panel ul li {
+  padding: 15px;
+  font-size: 16px;
+}
+
+.left-panel ul li a,
+.left-panel ul li button {
+  color: white;
+  text-decoration: none;
+  width: 100%;
+  display: block;
+  background: none;
+  border: none;
+  text-align: left;
+  cursor: pointer;
+}
+
+.left-panel ul li:hover {
+  background-color: #21262d;
+}
+
+/* Right Sidebar (Full Screen Height) */
+.right-panel {
+  position: fixed;
+  top: 0;
+  right: 0;
+  height: 100vh;
+  width: 250px;
+  background: #0d1117;
+  padding: 20px;
+  border-left: 1px solid #30363d;
+  z-index: 100;
+}
+
+.right-panel ul {
+  list-style: none;
+  padding: 0;
+  margin-top: 50px;
+}
+
+.right-panel ul li {
+  padding: 15px;
+  font-size: 16px;
+}
+
+.right-panel ul li a,
+.right-panel ul li button {
+  color: white;
+  text-decoration: none;
+  width: 100%;
+  display: block;
+  background: none;
+  border: none;
+  text-align: left;
+  cursor: pointer;
+}
+
+.right-panel ul li:hover {
+  background-color: #21262d;
+}
+
+  @media screen and (max-width: 750px) {
+    .repo {
+      width: 100%;
+    }
+  }
+  
+  @media screen and (max-width: 570px) {
+    .user-profile-section {
+      margin: auto;
+    }
+  
+    .profile-page-wrapper {
+      display: block;
+    }
+  }
+  
+  #logout:hover {
+    border: 1px solid white;
+  }
     cursor: pointer;
     color: #408ced;
     font-size: 20px;

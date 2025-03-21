@@ -100,13 +100,12 @@ const getRepositoryByName = async (req, res) => {
 
 const fetchRepositoryForCurrUser = async (req, res) => {
 	try {
-		const {userId} = req.params;
-		console.log(userId);
+		const userId = req.user._id;
 		// if (!mongoose.Types.ObjectId.isValid(userId)) {
 		// 	return res.status(400).json({ message: "Invalid repository id" });
 		// }
 		const user = await User.findById(userId);
-		
+
 		if (!user) return res.status(404).json({ message: "User not found" });
 
 		const repos = await Repository.find({ owner: userId })
@@ -126,7 +125,7 @@ const fetchRepositoryForCurrUser = async (req, res) => {
 
 const updateRepositoryById = async (req, res) => {
 	try {
-		const userId = req.user;
+		const userId = req.user._id;
 		const repoId = req.params.id;
 		const { content, description } = req.body;
 		if (!mongoose.Types.ObjectId.isValid(repoId)) {
@@ -155,7 +154,7 @@ const updateRepositoryById = async (req, res) => {
 };
 const deleteRepositoryById = async (req, res) => {
 	try {
-		const userId = req.user;
+		const userId = req.user._id;
 		const repoId = req.params.id;
 		if (!mongoose.Types.ObjectId.isValid(repoId)) {
 			return res.status(400).json({ message: "Invalid repository id" });
@@ -180,7 +179,7 @@ const deleteRepositoryById = async (req, res) => {
 };
 const toggleVisibility = async (req, res) => {
 	try {
-		const userId = req.user;
+		const userId = req.user._id;
 		const repoId = req.params.id;
 		if (!mongoose.Types.ObjectId.isValid(repoId)) {
 			return res.status(400).json({ message: "Invalid repository id" });

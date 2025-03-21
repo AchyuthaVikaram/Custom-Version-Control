@@ -1,8 +1,13 @@
 /* New Repository - GitHub-Inspired */
-
+.main-container {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	padding: 20px;
+}
 .new-repo-container {
 	width: 70vw;
-  margin: auto;
+	margin: auto;
 	padding: 20px;
 	background: #161b22;
 	border-radius: 8px;

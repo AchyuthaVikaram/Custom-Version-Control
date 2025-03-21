@@ -1,5 +1,3 @@
-const Repository = require("../models/repoModel.js");
-const User = require("../models/userModel.js");
 const Issue = require("../models/issueModel.js");
 
 const createIssue = async (req, res) => {
