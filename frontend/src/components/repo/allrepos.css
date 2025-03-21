@@ -1,0 +1,190 @@
+/* Dark Theme - GitHub-Inspired */
+body {
+	background-color: #0d1117;
+	color: #c9d1d9;
+	font-family: Arial, sans-serif;
+}
+
+.main-container {
+	display: flex;
+	justify-content: center;
+    flex-direction: column;
+	align-items: center;
+	min-height: 100vh;
+	width: 98vw;
+}
+
+.repos-container {
+	width: 70vw;
+	background: #161b22;
+	padding: 20px;
+	border-radius: 8px;
+	box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
+}
+
+/* Header (Title, Search, New Repo Button) */
+.header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-bottom: 20px;
+}
+
+.title {
+	font-size: 25px;
+	font-weight: bold;
+    margin: 20px 0;
+}
+
+/* Search Bar */
+.search-bar {
+	display: flex;
+	align-items: center;
+	background: #21262d;
+	padding: 8px;
+	border-radius: 6px;
+	width: 250px;
+}
+
+.search-bar input {
+	background: none;
+	border: none;
+	outline: none;
+	color: #c9d1d9;
+	margin-left: 8px;
+	width: 100%;
+}
+
+.search-icon {
+	color: #8b949e;
+}
+
+/* New Repo Button */
+.create-btn {
+	background: #238636;
+	color: white;
+	border: none;
+	padding: 8px 15px;
+	font-size: 14px;
+	font-weight: bold;
+	border-radius: 6px;
+	display: flex;
+	align-items: center;
+	cursor: pointer;
+	transition: 0.3s;
+}
+
+.create-btn:hover {
+	background: #2ea043;
+}
+
+.plus-icon {
+	margin-right: 5px;
+}
+
+/* Repo List */
+.repo-list {
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+}
+
+/* Repo Card */
+.repo-card {
+	background: #21262d;
+	padding: 15px;
+	border-radius: 6px;
+	border-left: 5px solid #2ea043;
+	transition: transform 0.2s ease-in-out;
+}
+
+.repo-card:hover {
+	transform: translateY(-2px);
+}
+
+/* Repo Header (Name, Badge & Actions) */
+.repo-header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+/* Repo Name & Badge Container */
+.repo-name-container {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+}
+
+.repo-name {
+	font-size: 18px;
+	font-weight: bold;
+	color: #58a6ff;
+}
+
+/* Visibility Badges */
+.badge {
+	font-size: 12px;
+	font-weight: bold;
+	padding: 5px 8px;
+	border-radius: 12px;
+	display: flex;
+	align-items: center;
+	gap: 5px;
+}
+
+/* Public Badge */
+.public-badge {
+	background: #238636;
+	color: white;
+}
+
+/* Private Badge */
+.private-badge {
+	background: #f85149;
+	color: white;
+}
+
+/* Badge Icon */
+.badge-icon {
+	font-size: 12px;
+}
+
+/* Edit & Delete Buttons */
+.repo-actions {
+	display: flex;
+	gap: 10px;
+}
+
+.edit-icon,
+.delete-icon {
+	cursor: pointer;
+	font-size: 16px;
+}
+
+.edit-icon {
+	color: #58a6ff;
+}
+
+.delete-icon {
+	color: #f85149;
+}
+
+.repo-owner {
+	font-size: 14px;
+	color: #8b949e;
+}
+
+.repo-description {
+	font-size: 14px;
+	margin-top: 5px;
+	color: #c9d1d9;
+}
+
+/* Loading & Error Messages */
+.loading,
+.error {
+	text-align: center;
+	font-size: 18px;
+	margin-top: 20px;
+}

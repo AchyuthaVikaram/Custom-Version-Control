@@ -6,8 +6,8 @@ import { UnderlineNav } from "@primer/react";
 import { BookIcon, RepoIcon } from "@primer/octicons-react";
 import { useAuth } from "../../authContext";
 import BASE_URL from "../../constant";
-import Navbar from "./Navbar";
 import HeatMapProfile from "./HeatMap";
+import Navbar from "../Navbar";
 
 const Profile = () => {
 	const navigate = useNavigate();
@@ -35,7 +35,7 @@ const Profile = () => {
 
 	return (
 		<>
-			<Navbar />
+			<Navbar/>
 			<UnderlineNav aria-label="Repository">
 				<UnderlineNav.Item
 					aria-current="page"

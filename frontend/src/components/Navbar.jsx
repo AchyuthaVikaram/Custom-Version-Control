@@ -4,6 +4,8 @@ import { FaGithub, FaBell, FaPlus, FaUserCircle, FaBars } from "react-icons/fa";
 import { FiSearch } from "react-icons/fi";
 import { Tooltip } from "react-tooltip";
 import "./navbar.css";
+import RightPanel from "./RightPanel";
+import LeftPanel from "./LeftPanel";
 
 const Navbar = () => {
 	const [showLeftPanel, setShowLeftPanel] = useState(false);
@@ -26,6 +28,13 @@ const Navbar = () => {
 		document.addEventListener("click", handleOutsideClick);
 		return () => document.removeEventListener("click", handleOutsideClick);
 	}, []);
+
+	const toggleRightPanel = () => {
+		setShowRightPanel(!showRightPanel);
+	};
+	const toggleLeftPanel = () => {
+		setShowLeftPanel(!showLeftPanel);
+	};
 
 	return (
 		<nav className="navbar">
@@ -59,7 +68,9 @@ const Navbar = () => {
 				<Tooltip id="notif-tooltip" place="bottom" content="Notifications" />
 
 				<button className="icon-btn" data-tooltip-id="create-tooltip">
-					<FaPlus size={18} />
+					<Link to="/repo/new">
+						<FaPlus size={18} />{" "}
+					</Link>
 				</button>
 				<Tooltip
 					id="create-tooltip"
@@ -77,36 +88,18 @@ const Navbar = () => {
 
 			{/* Left Sidebar Panel */}
 			{showLeftPanel && (
-				<div className="left-panel">
-					<ul>
-						<li>
-							<Link to="/repositories">Repositories</Link>
-						</li>
-						<li>
-							<Link to="/issues">Issues</Link>
-						</li>
-						<li>
-							<button onClick={() => alert("Logged out!")}>Logout</button>
-						</li>
-					</ul>
-				</div>
+				<LeftPanel
+					showLeftPanel={showLeftPanel}
+					toggleLeftPanel={toggleLeftPanel}
+				/>
 			)}
 
 			{/* Right Sidebar Panel */}
 			{showRightPanel && (
-				<div className="right-panel">
-					<ul>
-						<li>
-							<Link to="/profile">Profile</Link>
-						</li>
-						<li>
-							<Link to="/your-repos">Your Repositories</Link>
-						</li>
-						<li>
-							<button onClick={() => alert("Logged out!")}>Logout</button>
-						</li>
-					</ul>
-				</div>
+				<RightPanel
+					showRightPanel={showRightPanel}
+					toggleRightPanel={toggleRightPanel}
+				/>
 			)}
 		</nav>
 	);

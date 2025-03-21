@@ -1,0 +1,122 @@
+/* New Repository - GitHub-Inspired */
+
+.new-repo-container {
+	width: 70vw;
+  margin: auto;
+	padding: 20px;
+	background: #161b22;
+	border-radius: 8px;
+	box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
+	color: #c9d1d9;
+}
+
+.title {
+	font-size: 24px;
+	font-weight: bold;
+	margin-bottom: 10px;
+}
+
+.subtitle {
+	font-size: 14px;
+	color: #8b949e;
+	margin-bottom: 20px;
+}
+
+/* Input Fields */
+.input-group {
+	display: flex;
+	flex-direction: column;
+	margin-bottom: 15px;
+}
+
+.input-group label {
+	font-size: 14px;
+	margin-bottom: 5px;
+}
+
+.input-group input,
+.input-group textarea {
+	background: #0d1117;
+	color: #c9d1d9;
+	border: 1px solid #30363d;
+	padding: 8px;
+	border-radius: 5px;
+	outline: none;
+}
+
+.input-group textarea {
+	resize: none;
+	height: 60px;
+}
+
+.disabled-input {
+	background: #21262d;
+	color: #8b949e;
+	cursor: not-allowed;
+}
+
+/* Visibility Section */
+.visibility-section {
+	margin-bottom: 15px;
+}
+
+.visibility-options {
+	display: flex;
+	gap: 15px;
+}
+
+.visibility-option {
+	display: flex;
+	align-items: center;
+	gap: 5px;
+	padding: 8px 12px;
+	border-radius: 5px;
+	cursor: pointer;
+	font-size: 14px;
+	transition: 0.3s;
+	background: #21262d;
+}
+
+.visibility-option input {
+	display: none;
+}
+
+.visibility-option .icon {
+	font-size: 16px;
+}
+
+.visibility-option.selected {
+	background: #238636;
+	color: white;
+}
+
+/* Checkbox */
+.checkbox-group {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	margin-bottom: 20px;
+}
+
+/* Create Button */
+.create-btn {
+	background: #238636;
+	color: white;
+	border: none;
+	padding: 10px 15px;
+	font-size: 14px;
+	font-weight: bold;
+	border-radius: 6px;
+	display: flex;
+	align-items: center;
+	cursor: pointer;
+	transition: 0.3s;
+}
+
+.create-btn:hover {
+	background: #2ea043;
+}
+
+.btn-icon {
+	margin-right: 5px;
+}

@@ -5,6 +5,8 @@ import Signup from "./components/auth/Signup";
 import { useAuth } from "./authContext";
 import Dashboard from "./components/dashboard/Dashboard";
 import Profile from "./components/user/Profile";
+import AllRepositories from "./components/repo/AllRepositories";
+import NewRepo from "./components/repo/NewRepo";
 
 function AuthHandler() {
 	const { currUser, setCurrUser } = useAuth();
@@ -38,6 +40,8 @@ function App() {
 				<Route path="/auth" element={<Login />} />
 				<Route path="/signup" element={<Signup />} />
 				<Route path="/profile" element={<Profile />} />
+				<Route path="/user/repositories" element={<AllRepositories />} />
+				<Route path="/repo/new" element={<NewRepo />} />
 			</Routes>
 		</BrowserRouter>
 	);

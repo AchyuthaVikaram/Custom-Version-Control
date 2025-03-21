@@ -2,9 +2,9 @@ import axios from "axios";
 import React, { useState, useEffect } from "react";
 import BASE_URL from "../../constant";
 import "./dashboard.css";
-import Navbar from "../user/Navbar";
 import { FaFolder } from "react-icons/fa"; // File icon
 import { FaUserCircle } from "react-icons/fa"; // User avatar icon
+import Navbar from "../Navbar";
 
 export default function Dashboard() {
 	const [repositories, setRepositories] = useState([]);

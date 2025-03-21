@@ -162,3 +162,36 @@
 .right-panel ul li:hover {
   background-color: #21262d;
 }
+/* Left Sidebar */
+.left-panel {
+  position: absolute;
+  top: 60px;
+  left: -220px; /* Initially hidden */
+  background: #161b22;
+  width: 200px;
+  padding: 10px;
+  border: 1px solid #30363d;
+  border-radius: 6px;
+  transition: left 0.3s ease-in-out; /* Smooth transition */
+}
+
+.left-panel.show {
+  left: 0; /* Slide in when active */
+}
+
+/* Right Sidebar */
+.right-panel {
+  position: absolute;
+  top: 60px;
+  right: -220px; /* Initially hidden */
+  background: #161b22;
+  width: 200px;
+  padding: 10px;
+  border: 1px solid #30363d;
+  border-radius: 6px;
+  transition: right 0.3s ease-in-out; /* Smooth transition */
+}
+
+.right-panel.show {
+  right: 0; /* Slide in when active */
+}
