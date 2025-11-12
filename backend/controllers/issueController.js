@@ -33,9 +33,17 @@ const updateIssueById = async (req, res) => {
 			return res.status(404).json({ error: "Issue not found!" });
 		}
 
-		issue.title = title;
-		issue.description = description;
-		issue.status = status;
+		// Apply only provided fields; keep existing values otherwise
+		if (typeof title !== "undefined") issue.title = title;
+		if (typeof description !== "undefined") issue.description = description;
+		if (typeof status !== "undefined") {
+			// Validate against allowed values
+			const allowed = ["Open", "Close"];
+			if (!allowed.includes(status)) {
+				return res.status(400).json({ error: "Invalid status value" });
+			}
+			issue.status = status;
+		}
 
 		await issue.save();
 
@@ -49,7 +57,7 @@ const deleteIssueById = async (req, res) => {
 	const { id } = req.params;
 
 	try {
-		const issue = Issue.findByIdAndDelete(id);
+		const issue = await Issue.findByIdAndDelete(id);
 
 		if (!issue) {
 			return res.status(404).json({ error: "Issue not found!" });
@@ -65,10 +73,8 @@ const getAllIssuesOfRepo = async (req, res) => {
 
 	try {
 		const issues = await Issue.find({ repository: id });
-		if (!issues || issues.length === 0) {
-			return res.status(404).json({ error: "Issues not found!" });
-		}
-		res.status(200).json({
+		// Return 200 with empty list if no issues found for better client ergonomics
+		return res.status(200).json({
 			message: "All issues fetched of repo",
 			issues,
 		});
