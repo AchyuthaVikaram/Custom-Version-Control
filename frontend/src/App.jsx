@@ -4,7 +4,7 @@ import Login from "./components/auth/Login";
 import Signup from "./components/auth/Signup";
 import { useAuth } from "./authContext";
 import ModernDashboard from "./components/dashboard/ModernDashboard";
-import Profile from "./components/user/Profile";
+import ModernProfile from "./components/user/ModernProfile";
 import AllRepositories from "./components/repo/AllRepositories";
 import NewRepo from "./components/repo/NewRepo";
 import ModernRepoDetail from "./components/repo/ModernRepoDetail";
@@ -41,7 +41,7 @@ function App() {
 				<Route path="/" element={<ModernDashboard />} />
 				<Route path="/auth" element={<Login />} />
 				<Route path="/signup" element={<Signup />} />
-				<Route path="/profile" element={<Profile />} />
+				<Route path="/profile" element={<ModernProfile />} />
 				<Route path="/user/repositories" element={<AllRepositories />} />
 				<Route path="/repo/new" element={<NewRepo />} />
 				<Route path="/repo/:id" element={<ModernRepoDetail />} />

@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import axios from "axios";
 import { useAuth } from "../../authContext";
 import { Heading } from "@primer/react";
 import { Box, Button } from "@primer/react";
@@ -7,7 +6,7 @@ import "./auth.css";
 
 import logo from "../../assets/github-mark-white.svg";
 import { Link } from "react-router-dom";
-import BASE_URL from "../../constant";
+import { userAPI } from "../../utils/api";
 
 const Signup = () => {
 	const [email, setEmail] = useState("");
@@ -22,7 +21,7 @@ const Signup = () => {
 
 		try {
 			setLoading(true);
-			const res = await axios.post(`${BASE_URL}/signup`, {
+			const res = await userAPI.signup({
 				email: email,
 				password: password,
 				username: username,

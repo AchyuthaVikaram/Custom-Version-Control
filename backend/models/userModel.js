@@ -16,6 +16,18 @@ const UserSchema = new Schema({
 		type: String,
 		required: true,
 	},
+	bio: {
+		type: String,
+		default: "",
+	},
+	location: {
+		type: String,
+		default: "",
+	},
+	website: {
+		type: String,
+		default: "",
+	},
 	repositories: [
 		{
 			type: Schema.Types.ObjectId,
@@ -44,6 +56,8 @@ const UserSchema = new Schema({
 			default: [],
 		},
 	],
+}, {
+	timestamps: true // This adds createdAt and updatedAt fields
 });
 
 const User = mongoose.model("User", UserSchema);

@@ -7,8 +7,7 @@ import "./auth.css";
 import logo from "../../assets/github-mark-white.svg";
 import { Link } from "react-router-dom";
 import { useAuth } from "../../authContext";
-import BASE_URL from "../../constant";
-import axios from "axios";
+import { userAPI } from "../../utils/api";
 
 const Login = () => {
 	useEffect(() => {
@@ -25,7 +24,7 @@ const Login = () => {
 
 		try {
 			setLoading(true);
-			const res = await axios.post(`${BASE_URL}/login`, {
+			const res = await userAPI.login({
 				email: email,
 				password: password,
 			});

@@ -106,8 +106,8 @@ const getALlUsers = async (req, res) => {
 
 const getUserProfie = async (req, res) => {
 	try {
-		const userId = req.user._id;
-		const user = await User.findById(userId);
+		const userId = req.params.id;
+		const user = await User.findById(userId).select('-password').populate('repositories', 'name description isPrivate createdAt').populate('following', 'username email').populate('followers', 'username email');
 		if (!user) {
 			return res.status(404).json({
 				message: "User not found",
@@ -127,26 +127,37 @@ const getUserProfie = async (req, res) => {
 
 const updateUserProfile = async (req, res) => {
 	try {
-		const userId = req.user.id;
-		console.log(userId);
+		const userId = req.params.id;
 		const user = await User.findById(userId);
 		if (!user) {
 			return res.status(404).json({
 				message: "User not found",
 			});
 		}
-		const { email, password } = req.body;
+		const { username, email, password, bio, location, website } = req.body;
 		const updatedData = {};
+		
+		if (username) updatedData.username = username;
 		if (email) updatedData.email = email;
+		if (bio !== undefined) updatedData.bio = bio;
+		if (location !== undefined) updatedData.location = location;
+		if (website !== undefined) updatedData.website = website;
+		
 		if (password) {
 			const hashPass = await bcrypt.hash(password, 15);
 			updatedData.password = hashPass;
 		}
+		
 		Object.assign(user, updatedData);
 		await user.save();
+		
+		// Return user without password
+		const userResponse = user.toObject();
+		delete userResponse.password;
+		
 		return res
 			.status(200)
-			.json({ message: "Profile updated successfully", user });
+			.json({ message: "Profile updated successfully", user: userResponse });
 	} catch (error) {
 		console.log(error);
 		return res.status(500).json({
@@ -156,7 +167,7 @@ const updateUserProfile = async (req, res) => {
 };
 const deleteUserProfile = async (req, res) => {
 	try {
-		const userId = req.user.id;
+		const userId = req.params.id;
 		const user = await User.findById(userId);
 		if (!user) {
 			return res.status(404).json({

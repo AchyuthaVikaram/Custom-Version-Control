@@ -2,7 +2,7 @@ const Repository = require("../models/repoModel");
 const Issue = require("../models/issueModel");
 
 const isAuthorizedUser = (req, res, next) => {
-	if (req.user.id !== req.params.id) {
+	if (req.user._id.toString() !== req.params.id) {
 		return res.status(403).json({ message: "You are not authorized!" });
 	}
 	next();
