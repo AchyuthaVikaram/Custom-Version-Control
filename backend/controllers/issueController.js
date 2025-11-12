@@ -64,9 +64,8 @@ const getAllIssuesOfRepo = async (req, res) => {
 	const { id } = req.params;
 
 	try {
-		const issues = Issue.find({ repository: id });
-
-		if (!issues) {
+		const issues = await Issue.find({ repository: id });
+		if (!issues || issues.length === 0) {
 			return res.status(404).json({ error: "Issues not found!" });
 		}
 		res.status(200).json({
@@ -74,7 +73,7 @@ const getAllIssuesOfRepo = async (req, res) => {
 			issues,
 		});
 	} catch (err) {
-		console.error("Error during issue fetching : ", err.message);
+		console.error("Error during issue fetching:", err.message);
 		res.status(500).send("Server error");
 	}
 };

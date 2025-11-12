@@ -25,7 +25,7 @@ issueRouter.delete(
 	isIssueOwnerOrRepoOwner,
 	issueController.deleteIssueById
 );
-issueRouter.get("/issue/all", issueController.getAllIssuesOfRepo);
+issueRouter.get("/issue/all/:id", issueController.getAllIssuesOfRepo);
 issueRouter.get("/issue/:id", issueController.getIssueById);
 
 module.exports = issueRouter;
