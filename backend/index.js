@@ -17,6 +17,15 @@ const { commit } = require("./controllers/commit");
 const { pull } = require("./controllers/pull");
 const { push } = require("./controllers/push");
 const { revert } = require("./controllers/revert");
+const { createBranch, switchBranch, listBranches, deleteBranch } = require("./controllers/branch");
+const { status } = require("./controllers/status");
+const { log, logOneline } = require("./controllers/log");
+const { diff, diffStaged } = require("./controllers/diff");
+const { merge, mergeAbort } = require("./controllers/merge");
+const { clone } = require("./controllers/clone");
+const { createDefaultIgnore } = require("./controllers/ignore");
+const { stash, stashList, stashApply, stashPop, stashClear } = require("./controllers/stash");
+const { createTag, listTags, deleteTag, showTag } = require("./controllers/tag");
 
 // Configuring yargs to handle different commands
 yargs(hideBin(process.argv))
@@ -60,6 +69,168 @@ yargs(hideBin(process.argv))
 			});
 		},
 		(argv) => revert(argv.commitID) // Executes the 'revert' function
+	)
+	.command(
+		"branch <action> [name]",
+		"Manage branches (create, switch, list, delete)",
+		(yargs) => {
+			yargs.positional("action", {
+				describe: "Action: create, switch, list, delete",
+				type: "string",
+			});
+			yargs.positional("name", {
+				describe: "Branch name",
+				type: "string",
+			});
+		},
+		(argv) => {
+			switch (argv.action) {
+				case "create":
+					createBranch(argv.name);
+					break;
+				case "switch":
+					switchBranch(argv.name);
+					break;
+				case "list":
+					listBranches();
+					break;
+				case "delete":
+					deleteBranch(argv.name);
+					break;
+				default:
+					console.log("Invalid action. Use: create, switch, list, or delete");
+			}
+		}
+	)
+	.command("status", "Show working directory status", {}, status)
+	.command(
+		"log [limit]",
+		"Show commit history",
+		(yargs) => {
+			yargs.positional("limit", {
+				describe: "Number of commits to show",
+				type: "number",
+			});
+		},
+		(argv) => log(argv.limit)
+	)
+	.command("log-oneline", "Show commit history in one line format", {}, logOneline)
+	.command(
+		"diff [file]",
+		"Show differences between working directory and last commit",
+		(yargs) => {
+			yargs.positional("file", {
+				describe: "Specific file to diff",
+				type: "string",
+			});
+		},
+		(argv) => diff(argv.file)
+	)
+	.command("diff-staged", "Show differences in staged files", {}, diffStaged)
+	.command(
+		"merge <branch>",
+		"Merge a branch into current branch",
+		(yargs) => {
+			yargs.positional("branch", {
+				describe: "Branch to merge from",
+				type: "string",
+			});
+		},
+		(argv) => merge(argv.branch)
+	)
+	.command("merge-abort", "Abort merge in progress", {}, mergeAbort)
+	.command(
+		"clone <repo> [dir]",
+		"Clone a repository from S3",
+		(yargs) => {
+			yargs.positional("repo", {
+				describe: "Repository name",
+				type: "string",
+			});
+			yargs.positional("dir", {
+				describe: "Target directory",
+				type: "string",
+			});
+		},
+		(argv) => clone(argv.repo, argv.dir)
+	)
+	.command("ignore-init", "Create default .customignore file", {}, createDefaultIgnore)
+	.command(
+		"stash [message]",
+		"Stash current changes",
+		(yargs) => {
+			yargs.positional("message", {
+				describe: "Stash message",
+				type: "string",
+			});
+		},
+		(argv) => stash(argv.message)
+	)
+	.command("stash-list", "List all stashes", {}, stashList)
+	.command(
+		"stash-apply [index]",
+		"Apply a stash",
+		(yargs) => {
+			yargs.positional("index", {
+				describe: "Stash index",
+				type: "number",
+				default: 0,
+			});
+		},
+		(argv) => stashApply(argv.index)
+	)
+	.command(
+		"stash-pop [index]",
+		"Apply and remove a stash",
+		(yargs) => {
+			yargs.positional("index", {
+				describe: "Stash index",
+				type: "number",
+				default: 0,
+			});
+		},
+		(argv) => stashPop(argv.index)
+	)
+	.command("stash-clear", "Clear all stashes", {}, stashClear)
+	.command(
+		"tag <action> [name] [commit] [message]",
+		"Manage tags (create, list, delete, show)",
+		(yargs) => {
+			yargs.positional("action", {
+				describe: "Action: create, list, delete, show",
+				type: "string",
+			});
+			yargs.positional("name", {
+				describe: "Tag name",
+				type: "string",
+			});
+			yargs.positional("commit", {
+				describe: "Commit ID (for create)",
+				type: "string",
+			});
+			yargs.positional("message", {
+				describe: "Tag message (for create)",
+				type: "string",
+			});
+		},
+		(argv) => {
+			switch (argv.action) {
+				case "create":
+					createTag(argv.name, argv.commit, argv.message);
+					break;
+				case "list":
+					listTags();
+					break;
+				case "delete":
+					deleteTag(argv.name);
+					break;
+				case "show":
+					showTag(argv.name);
+					break;
+				default:
+					console.log("Invalid action. Use: create, list, delete, or show");
+			}
+		}
 	)
 	.demandCommand(1, "You need at least one command") // Ensures at least one command is provided
 	.help().argv; // Enables help documentation for command usage

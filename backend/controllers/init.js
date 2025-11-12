@@ -11,6 +11,12 @@ async function init() {
 	// The "commits" folder inside ".customGit" is required to store commit snapshots.
 	// This structure mimics Git, which tracks changes by storing them inside a special directory.
 
+	const branchesPath = path.join(repoPath, "refs", "heads");
+	// Create branches directory structure
+	
+	const tagsPath = path.join(repoPath, "refs", "tags");
+	// Create tags directory structure
+
 	try {
 		// Create the main repository folder (if it doesn't already exist)
 		await fs.mkdir(repoPath, { recursive: true });
@@ -22,6 +28,34 @@ async function init() {
 		// This ensures that we have a dedicated place to store version history.
 		// Without this, the repository won't have a structured way to manage commits.
 
+		// Create branches directory
+		await fs.mkdir(branchesPath, { recursive: true });
+		
+		// Create tags directory
+		await fs.mkdir(tagsPath, { recursive: true });
+		
+		// Create staging directory
+		await fs.mkdir(path.join(repoPath, "staging"), { recursive: true });
+		
+		// Create stash directory
+		await fs.mkdir(path.join(repoPath, "stash"), { recursive: true });
+
+		// Create master branch
+		await fs.writeFile(
+			path.join(branchesPath, "master"),
+			JSON.stringify({ commit: null, created: new Date().toISOString() })
+		);
+
+		// Create HEAD pointing to master
+		await fs.writeFile(
+			path.join(repoPath, "HEAD"),
+			JSON.stringify({ 
+				branch: "master", 
+				commit: null, 
+				created: new Date().toISOString() 
+			})
+		);
+
 		// Create a configuration file to store metadata such as S3 bucket information
 		await fs.writeFile(
 			path.join(repoPath, "config.json"),
@@ -31,9 +65,10 @@ async function init() {
 		// Without it, we wouldn't know where to push or pull commits from.
 
 		console.log("Repository initialized");
+		console.log("Created master branch");
 	} catch (error) {
 		console.log("Error initializing repository: " + error);
 	}
 }
 
-module.exports = { init }; 
+module.exports = { init };
