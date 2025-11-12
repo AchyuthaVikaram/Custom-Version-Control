@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import "./newrepo.css";
 import { FaLock, FaGlobe, FaPlus } from "react-icons/fa";
 import Navbar from "../Navbar";
-import axios from "axios";
 import BASE_URL from "../../constant";
+import api from "../../api";
 import { useNavigate } from "react-router-dom";
 
 const NewRepo = () => {
@@ -27,7 +27,7 @@ const NewRepo = () => {
 		};
 		console.log("Creating repo with data:", newRepoData);
 		try {
-			const res = await axios.post(`${BASE_URL}/repo/create`, newRepoData);
+			const res = await api.post(`${BASE_URL}/repo/create`, newRepoData);
 			console.log("Repo created successfully:", res.data);
 			alert("Repository created successfully!");
 			setRepoName("");

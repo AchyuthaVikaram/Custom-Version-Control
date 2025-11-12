@@ -1,5 +1,5 @@
-import axios from "axios";
 import React, { useState, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import {
 	FaEdit,
 	FaTrash,
@@ -9,6 +9,7 @@ import {
 	FaGlobe,
 } from "react-icons/fa"; // Icons
 import BASE_URL from "../../constant";
+import api from "../../api";
 import Navbar from "../Navbar";
 import "./allrepos.css";
 
@@ -17,12 +18,13 @@ export default function AllRepos() {
 	const [searchQuery, setSearchQuery] = useState("");
 	const [loading, setLoading] = useState(true);
 	const [error, setError] = useState(null);
+    const navigate = useNavigate();
 
 	useEffect(() => {
 		const fetchReposOfUser = async () => {
 			try {
 				const userId = localStorage.getItem("userId"); // Get current user ID
-				const res = await axios.get(`${BASE_URL}/repo/user/${userId}`);
+				const res = await api.get(`${BASE_URL}/repo/user/${userId}`);
 				setRepositories(res.data.repos);
 			} catch (err) {
 				setError("Failed to load repositories.");
@@ -39,7 +41,7 @@ export default function AllRepos() {
 			return;
 
 		try {
-			await axios.delete(`${BASE_URL}/repo/${repoId}`);
+			await api.delete(`${BASE_URL}/repo/delete/${repoId}`);
 			setRepositories(repositories.filter((repo) => repo._id !== repoId));
 		} catch (error) {
 			console.log(error);
@@ -76,7 +78,7 @@ export default function AllRepos() {
 						{/* Create New Repo Button */}
 						<button
 							className="create-btn"
-							onClick={() => (window.location.href = "/new/repo")}
+							onClick={() => navigate("/repo/new")}
 						>
 							<FaPlus className="plus-icon" /> New Repo
 						</button>
@@ -87,7 +89,7 @@ export default function AllRepos() {
 					) : (
 						<div className="repo-list">
 							{filteredRepos.map((repo) => (
-								<div key={repo._id} className="repo-card">
+								<div key={repo._id} className="repo-card" onClick={() => navigate(`/repo/${repo._id}`)} style={{cursor:"pointer"}}>
 									<div className="repo-header">
 										{/* Repo Name & Visibility Badge */}
 										<div className="repo-name-container">
@@ -111,11 +113,11 @@ export default function AllRepos() {
 
 										{/* Edit & Delete Actions */}
 										<div className="repo-actions">
-											<FaEdit className="edit-icon" title="Edit" />
+											<FaEdit className="edit-icon" title="Edit" onClick={(e) => { e.stopPropagation(); navigate(`/repo/${repo._id}`); }} />
 											<FaTrash
 												className="delete-icon"
 												title="Delete"
-												onClick={() => handleDelete(repo._id)}
+												onClick={(e) => { e.stopPropagation(); handleDelete(repo._id); }}
 											/>
 										</div>
 									</div>

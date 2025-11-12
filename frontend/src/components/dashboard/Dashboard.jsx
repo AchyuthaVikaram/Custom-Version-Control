@@ -1,6 +1,7 @@
-import axios from "axios";
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import BASE_URL from "../../constant";
+import api from "../../api";
 import "./dashboard.css";
 import { FaFolder } from "react-icons/fa"; // File icon
 import { FaUserCircle } from "react-icons/fa"; // User avatar icon
@@ -15,11 +16,13 @@ export default function Dashboard() {
 	const [searchResults2, setSearchResults2] = useState([]);
 	const [showDropdown, setShowDropdown] = useState(false);
 
+	const navigate = useNavigate();
+
 	useEffect(() => {
 		const userId = localStorage.getItem("userId");
 		const fetchReposOfUser = async () => {
 			try {
-				const res = await axios.get(`${BASE_URL}/repo/user/${userId}`);
+				const res = await api.get(`${BASE_URL}/repo/user/${userId}`);
 				console.log(res.data);
 				setRepositories(res.data.repos);
 			} catch (error) {
@@ -30,7 +33,7 @@ export default function Dashboard() {
 		fetchReposOfUser();
 		const fetchAllRepos = async () => {
 			try {
-				const res = await axios.get(`${BASE_URL}/repo/all`);
+				const res = await api.get(`${BASE_URL}/repo/all`);
 				console.log(res.data);
 				setSuggestedRepositories(res.data.repos);
 			} catch (error) {
@@ -70,91 +73,93 @@ export default function Dashboard() {
 	return (
 		<>
 			<Navbar />
-			<section id="dashboard">
-				{/* Suggested Repositories Section */}
-				<aside className="suggested-repos">
-					{/* Avatar & Username */}
-					<div
-						className="profile-section"
-						onClick={() => setShowDropdown(!showDropdown)}
-					>
-						<FaUserCircle className="avatar-icon" />
-						<h3>username</h3>
-					</div>
-					{showDropdown && (
-						<div className="profile-dropdown">
-							<a href="/profile">Profile</a>
-							<a href="/your-repositories">Your Repositories</a>
+			<div className="container">
+				<section id="dashboard">
+					{/* Suggested Repositories Section */}
+					<aside className="suggested-repos">
+						{/* Avatar & Username */}
+						<div
+							className="profile-section"
+							onClick={() => setShowDropdown(!showDropdown)}
+						>
+							<FaUserCircle className="avatar-icon" />
+							<h3>username</h3>
 						</div>
-					)}
-
-					{/* Recent Title */}
-					<h4>Recent Repositories</h4>
-
-					{/* Search Box */}
-					<input
-						type="text"
-						value={searchQuery2}
-						placeholder="Search Repositories..."
-						onChange={(e) => setSearchQuery2(e.target.value)}
-						className="search-box"
-					/>
-
-					{/* Suggested Repositories List */}
-					<div className="repo-list">
-						{searchResults2.map((repo) => (
-							<div key={repo._id} className="repo-item">
-								<FaFolder className="repo-icon" />
-								<span
-									className="repo-name"
-									style={{ color: "white", fontSize: "15px" }}
-								>
-									<strong style={{ color: "white" }}>
-										{repo.owner.username}
-									</strong>
-									/{repo.name}
-								</span>
+						{showDropdown && (
+							<div className="profile-dropdown">
+								<a href="/profile">Profile</a>
+								<a href="/your-repositories">Your Repositories</a>
 							</div>
-						))}
-					</div>
-				</aside>
-				<main>
-					<h2>Your Repositories</h2>
-					<br />
-					{/* <div id="search"> */}
-					<input
-						type="text"
-						value={searchQuery}
-						placeholder="Search..."
-						onChange={(e) => setSearchQuery(e.target.value)}
-					/>
-					{/* </div> */}
-					<br />
-					<br />
-					{searchResults.map((repo) => {
-						return (
-							<div key={repo._id} >
-								<h4>{repo.name}</h4>
-								<h4>{repo.description}</h4>
-							</div>
-						);
-					})}
-				</main>
-				<aside>
-					<h3>Upcoming Events</h3>
-					<ul>
-						<li>
-							<p>Tech Conference - Dec 15</p>
-						</li>
-						<li>
-							<p>Developer Meetup - Dec 25</p>
-						</li>
-						<li>
-							<p>React Summit - Jan 5</p>
-						</li>
-					</ul>
-				</aside>
-			</section>
+						)}
+
+						{/* Recent Title */}
+						<h4>Recent Repositories</h4>
+
+						{/* Search Box */}
+						<input
+							type="text"
+							value={searchQuery2}
+							placeholder="Search Repositories..."
+							onChange={(e) => setSearchQuery2(e.target.value)}
+							className="search-box"
+						/>
+
+						{/* Suggested Repositories List */}
+						<div className="repo-list">
+							{searchResults2.map((repo) => (
+								<div key={repo._id} className="repo-item" onClick={() => navigate(`/repo/${repo._id}`)} style={{cursor:"pointer"}}>
+									<FaFolder className="repo-icon" />
+									<span
+										className="repo-name"
+										style={{ color: "white", fontSize: "15px" }}
+									>
+										<strong style={{ color: "white" }}>
+											{repo.owner.username}
+										</strong>
+										/{repo.name}
+									</span>
+								</div>
+							))}
+						</div>
+					</aside>
+					<main>
+						<h2>Your Repositories</h2>
+						<br />
+						{/* <div id="search"> */}
+						<input
+							type="text"
+							value={searchQuery}
+							placeholder="Search..."
+							onChange={(e) => setSearchQuery(e.target.value)}
+						/>
+						{/* </div> */}
+						<br />
+						<br />
+						{searchResults.map((repo) => {
+							return (
+								<div key={repo._id} >
+									<h4>{repo.name}</h4>
+									<h4>{repo.description}</h4>
+								</div>
+							);
+						})}
+					</main>
+					<aside>
+						<h3>Upcoming Events</h3>
+						<ul>
+							<li>
+								<p>Tech Conference - Dec 15</p>
+							</li>
+							<li>
+								<p>Developer Meetup - Dec 25</p>
+							</li>
+							<li>
+								<p>React Summit - Jan 5</p>
+							</li>
+						</ul>
+					</aside>
+				</section>
+			</div>
 		</>
 	);
 }
