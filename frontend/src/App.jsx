@@ -3,11 +3,11 @@ import { BrowserRouter, Route, Routes, useNavigate } from "react-router-dom";
 import Login from "./components/auth/Login";
 import Signup from "./components/auth/Signup";
 import { useAuth } from "./authContext";
-import Dashboard from "./components/dashboard/Dashboard";
+import ModernDashboard from "./components/dashboard/ModernDashboard";
 import Profile from "./components/user/Profile";
 import AllRepositories from "./components/repo/AllRepositories";
 import NewRepo from "./components/repo/NewRepo";
-import RepoDetail from "./components/repo/RepoDetail";
+import ModernRepoDetail from "./components/repo/ModernRepoDetail";
 import VersionControl from "./components/vcs/VersionControl";
 
 function AuthHandler() {
@@ -38,13 +38,13 @@ function App() {
 		<BrowserRouter>
 			<AuthHandler />
 			<Routes>
-				<Route path="/" element={<Dashboard />} />
+				<Route path="/" element={<ModernDashboard />} />
 				<Route path="/auth" element={<Login />} />
 				<Route path="/signup" element={<Signup />} />
 				<Route path="/profile" element={<Profile />} />
 				<Route path="/user/repositories" element={<AllRepositories />} />
 				<Route path="/repo/new" element={<NewRepo />} />
-				<Route path="/repo/:id" element={<RepoDetail />} />
+				<Route path="/repo/:id" element={<ModernRepoDetail />} />
 				<Route path="/vcs/:repoId" element={<VersionControl />} />
 			</Routes>
 		</BrowserRouter>

@@ -12,13 +12,28 @@ const IssueSchema = new Schema({
 	},
 	status: {
 		type: String,
-		enum: ["Open", "Close"],
-		default: "Open",
+		enum: ["open", "closed", "in_progress"],
+		default: "open",
+	},
+	priority: {
+		type: String,
+		enum: ["low", "medium", "high"],
+		default: "medium",
+	},
+	labels: [{
+		type: String
+	}],
+	author: {
+		type: Schema.Types.ObjectId,
+		ref: "User",
+		required: true,
 	},
 	repository: {
 		type: Schema.Types.ObjectId,
 		ref: "Repository",
 		required: true,
 	},
+}, {
+	timestamps: true
 });
 module.exports = mongoose.model("Issue", IssueSchema);

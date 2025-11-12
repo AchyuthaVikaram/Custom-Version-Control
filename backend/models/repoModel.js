@@ -27,8 +27,25 @@ const RepositorySchema = new Schema({
 		{
 			type: Schema.Types.ObjectId,
 			ref: "Issue",
-			required: true,
 		},
 	],
+	language: {
+		type: String,
+		default: "JavaScript"
+	},
+	stars: {
+		type: Number,
+		default: 0
+	},
+	forks: {
+		type: Number,
+		default: 0
+	},
+	watchers: {
+		type: Number,
+		default: 0
+	}
+}, {
+	timestamps: true
 });
 module.exports = mongoose.model("Repository", RepositorySchema);

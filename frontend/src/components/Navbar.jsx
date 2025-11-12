@@ -1,106 +1,110 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
-import { FaGithub, FaBell, FaPlus, FaUserCircle, FaBars } from "react-icons/fa";
+import { Link, useNavigate } from "react-router-dom";
+import { FaGithub, FaBell, FaPlus, FaUserCircle, FaBars, FaSignOutAlt, FaCode, FaBook } from "react-icons/fa";
 import { FiSearch } from "react-icons/fi";
-import { Tooltip } from "react-tooltip";
 import "./navbar.css";
-import RightPanel from "./RightPanel";
-import LeftPanel from "./LeftPanel";
+import { useAuth } from "../authContext";
 
 const Navbar = () => {
-	const [showLeftPanel, setShowLeftPanel] = useState(false);
-	const [showRightPanel, setShowRightPanel] = useState(false);
+	const [showUserMenu, setShowUserMenu] = useState(false);
+	const [searchQuery, setSearchQuery] = useState("");
+	const { currUser, setCurrUser } = useAuth();
+	const navigate = useNavigate();
 
-	// Close panels when clicking outside
-	const handleOutsideClick = (e) => {
-		if (!e.target.closest(".left-panel") && !e.target.closest(".menu-btn")) {
-			setShowLeftPanel(false);
-		}
-		if (
-			!e.target.closest(".right-panel") &&
-			!e.target.closest(".profile-btn")
-		) {
-			setShowRightPanel(false);
+	const handleLogout = () => {
+		localStorage.removeItem("userId");
+		localStorage.removeItem("token");
+		setCurrUser(null);
+		navigate("/auth");
+	};
+
+	const handleSearch = (e) => {
+		e.preventDefault();
+		if (searchQuery.trim()) {
+			navigate(`/search?q=${searchQuery}`);
 		}
 	};
 
 	React.useEffect(() => {
-		document.addEventListener("click", handleOutsideClick);
-		return () => document.removeEventListener("click", handleOutsideClick);
+		const handleClickOutside = (e) => {
+			if (!e.target.closest(".user-menu-container")) {
+				setShowUserMenu(false);
+			}
+		};
+		document.addEventListener("click", handleClickOutside);
+		return () => document.removeEventListener("click", handleClickOutside);
 	}, []);
-
-	const toggleRightPanel = () => {
-		setShowRightPanel(!showRightPanel);
-	};
-	const toggleLeftPanel = () => {
-		setShowLeftPanel(!showLeftPanel);
-	};
 
 	return (
 		<nav className="navbar">
-			{/* Left Section: Menu Icon & Dashboard */}
-			<div className="nav-left">
-				<button
-					className="menu-btn"
-					onClick={() => setShowLeftPanel(!showLeftPanel)}
-				>
-					<FaBars size={20} />
-				</button>
-				<Link to="/" className="logo">
-					<FaGithub size={30} />
-					<span>Dashboard</span>
-				</Link>
-			</div>
-
-			{/* Middle Section: Search Bar */}
-			<div className="nav-middle">
-				{/* <div className="search-box">
-          <FiSearch size={18} />
-          <input type="text" placeholder="Type / to search" />
-        </div> */}
-			</div>
-
-			{/* Right Section: Icons */}
-			<div className="nav-right">
-				<button className="icon-btn" data-tooltip-id="notif-tooltip">
-					<FaBell size={18} />
-				</button>
-				<Tooltip id="notif-tooltip" place="bottom" content="Notifications" />
-
-				<button className="icon-btn" data-tooltip-id="create-tooltip">
-					<Link to="/repo/new">
-						<FaPlus size={18} />{" "}
+			<div className="navbar-container">
+				{/* Left Section */}
+				<div className="nav-left">
+					<Link to="/" className="nav-logo">
+						<FaGithub size={32} />
+						<span className="logo-text">CustomGit</span>
 					</Link>
-				</button>
-				<Tooltip
-					id="create-tooltip"
-					place="bottom"
-					content="Create new repository"
-				/>
+					<div className="nav-links">
+						<Link to="/" className="nav-link">Dashboard</Link>
+						<Link to="/user/repositories" className="nav-link">Repositories</Link>
+						<Link to="/explore" className="nav-link">Explore</Link>
+					</div>
+				</div>
 
-				<button
-					className="profile-btn"
-					onClick={() => setShowRightPanel(!showRightPanel)}
-				>
-					<FaUserCircle size={22} />
-				</button>
+				{/* Middle Section - Search */}
+				<div className="nav-middle">
+					<form className="search-form" onSubmit={handleSearch}>
+						<FiSearch className="search-icon" />
+						<input
+							type="text"
+							className="search-input"
+							placeholder="Search repositories..."
+							value={searchQuery}
+							onChange={(e) => setSearchQuery(e.target.value)}
+						/>
+					</form>
+				</div>
+
+				{/* Right Section */}
+				<div className="nav-right">
+					<Link to="/repo/new" className="btn-new-repo">
+						<FaPlus /> New
+					</Link>
+					<button className="nav-icon-btn">
+						<FaBell size={18} />
+					</button>
+					<div className="user-menu-container">
+						<button
+							className="user-avatar-btn"
+							onClick={() => setShowUserMenu(!showUserMenu)}
+						>
+							<FaUserCircle size={24} />
+						</button>
+						{showUserMenu && (
+							<div className="user-dropdown">
+								<div className="dropdown-header">
+									<FaUserCircle size={40} />
+									<div className="user-info">
+										<div className="username">User</div>
+										<div className="user-email">user@example.com</div>
+									</div>
+								</div>
+								<div className="dropdown-divider"></div>
+								<Link to="/profile" className="dropdown-item">
+									<FaUserCircle /> Your Profile
+								</Link>
+								<Link to="/user/repositories" className="dropdown-item">
+									<FaCode /> Your Repositories
+								</Link>
+								<div className="dropdown-divider"></div>
+								<button className="dropdown-item" onClick={handleLogout}>
+									<FaSignOutAlt /> Sign Out
+								</button>
+							</div>
+						)}
+					</div>
+				</div>
 			</div>
-
-			{/* Left Sidebar Panel */}
-			{showLeftPanel && (
-				<LeftPanel
-					showLeftPanel={showLeftPanel}
-					toggleLeftPanel={toggleLeftPanel}
-				/>
-			)}
-
-			{/* Right Sidebar Panel */}
-			{showRightPanel && (
-				<RightPanel
-					showRightPanel={showRightPanel}
-					toggleRightPanel={toggleRightPanel}
-				/>
-			)}
 		</nav>
 	);
 };
