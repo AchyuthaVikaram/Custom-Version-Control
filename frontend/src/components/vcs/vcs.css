@@ -1,0 +1,561 @@
+/* Branch Manager Styles */
+.branch-manager {
+	background: white;
+	border-radius: 8px;
+	padding: 20px;
+	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+	margin-bottom: 20px;
+}
+
+.branch-header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-bottom: 20px;
+}
+
+.branch-header h3 {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	margin: 0;
+	color: #333;
+}
+
+.btn-create-branch {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	padding: 8px 16px;
+	background: #4caf50;
+	color: white;
+	border: none;
+	border-radius: 4px;
+	cursor: pointer;
+	font-size: 14px;
+	transition: background 0.3s;
+}
+
+.btn-create-branch:hover {
+	background: #45a049;
+}
+
+.create-branch-form {
+	display: flex;
+	gap: 10px;
+	margin-bottom: 20px;
+	padding: 15px;
+	background: #f5f5f5;
+	border-radius: 4px;
+}
+
+.create-branch-form input {
+	flex: 1;
+	padding: 8px 12px;
+	border: 1px solid #ddd;
+	border-radius: 4px;
+	font-size: 14px;
+}
+
+.btn-submit {
+	padding: 8px 16px;
+	background: #2196f3;
+	color: white;
+	border: none;
+	border-radius: 4px;
+	cursor: pointer;
+	transition: background 0.3s;
+}
+
+.btn-submit:hover {
+	background: #1976d2;
+}
+
+.btn-cancel {
+	padding: 8px 16px;
+	background: #f44336;
+	color: white;
+	border: none;
+	border-radius: 4px;
+	cursor: pointer;
+	transition: background 0.3s;
+}
+
+.btn-cancel:hover {
+	background: #d32f2f;
+}
+
+.branch-list {
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+}
+
+.branch-item {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 12px;
+	border: 1px solid #e0e0e0;
+	border-radius: 4px;
+	transition: all 0.3s;
+}
+
+.branch-item:hover {
+	background: #f9f9f9;
+	border-color: #2196f3;
+}
+
+.branch-item.current {
+	background: #e3f2fd;
+	border-color: #2196f3;
+}
+
+.branch-info {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+}
+
+.current-icon {
+	color: #4caf50;
+}
+
+.branch-name {
+	font-weight: 600;
+	color: #333;
+}
+
+.commit-id {
+	font-family: monospace;
+	font-size: 12px;
+	color: #666;
+	background: #f5f5f5;
+	padding: 2px 6px;
+	border-radius: 3px;
+}
+
+.branch-actions {
+	display: flex;
+	gap: 8px;
+}
+
+.btn-switch {
+	padding: 6px 12px;
+	background: #2196f3;
+	color: white;
+	border: none;
+	border-radius: 4px;
+	cursor: pointer;
+	font-size: 12px;
+	transition: background 0.3s;
+}
+
+.btn-switch:hover {
+	background: #1976d2;
+}
+
+.btn-delete {
+	padding: 6px 10px;
+	background: #f44336;
+	color: white;
+	border: none;
+	border-radius: 4px;
+	cursor: pointer;
+	transition: background 0.3s;
+}
+
+.btn-delete:hover {
+	background: #d32f2f;
+}
+
+/* Commit History Styles */
+.commit-history {
+	background: white;
+	border-radius: 8px;
+	padding: 20px;
+	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+	margin-bottom: 20px;
+}
+
+.history-header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-bottom: 20px;
+}
+
+.history-header h3 {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	margin: 0;
+	color: #333;
+}
+
+.limit-select {
+	padding: 6px 12px;
+	border: 1px solid #ddd;
+	border-radius: 4px;
+	font-size: 14px;
+	cursor: pointer;
+}
+
+.commits-container {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: 20px;
+}
+
+.commits-list {
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+	max-height: 600px;
+	overflow-y: auto;
+}
+
+.commit-item {
+	padding: 15px;
+	border: 1px solid #e0e0e0;
+	border-radius: 4px;
+	cursor: pointer;
+	transition: all 0.3s;
+}
+
+.commit-item:hover {
+	background: #f9f9f9;
+	border-color: #2196f3;
+}
+
+.commit-item.selected {
+	background: #e3f2fd;
+	border-color: #2196f3;
+}
+
+.commit-header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-bottom: 8px;
+}
+
+.commit-branch {
+	display: flex;
+	align-items: center;
+	gap: 4px;
+	font-size: 12px;
+	color: #666;
+	background: #f5f5f5;
+	padding: 2px 8px;
+	border-radius: 3px;
+}
+
+.commit-message {
+	margin: 8px 0;
+	color: #333;
+	font-weight: 500;
+}
+
+.commit-meta {
+	display: flex;
+	gap: 15px;
+	font-size: 12px;
+	color: #666;
+}
+
+.commit-author,
+.commit-date {
+	display: flex;
+	align-items: center;
+	gap: 4px;
+}
+
+.commit-details {
+	padding: 20px;
+	background: #f9f9f9;
+	border-radius: 4px;
+	border: 1px solid #e0e0e0;
+}
+
+.commit-details h4 {
+	margin-top: 0;
+	color: #333;
+}
+
+.detail-section {
+	margin-bottom: 15px;
+}
+
+.detail-section strong {
+	display: block;
+	margin-bottom: 5px;
+	color: #555;
+}
+
+.file-list {
+	list-style: none;
+	padding: 0;
+	margin: 10px 0 0 0;
+}
+
+.file-list li {
+	padding: 6px 10px;
+	background: white;
+	border: 1px solid #e0e0e0;
+	border-radius: 3px;
+	margin-bottom: 5px;
+	font-family: monospace;
+	font-size: 13px;
+}
+
+.no-commits,
+.no-tags {
+	text-align: center;
+	padding: 40px;
+	color: #999;
+}
+
+/* Tag Manager Styles */
+.tag-manager {
+	background: white;
+	border-radius: 8px;
+	padding: 20px;
+	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+	margin-bottom: 20px;
+}
+
+.tag-header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-bottom: 20px;
+}
+
+.tag-header h3 {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	margin: 0;
+	color: #333;
+}
+
+.btn-create-tag {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	padding: 8px 16px;
+	background: #ff9800;
+	color: white;
+	border: none;
+	border-radius: 4px;
+	cursor: pointer;
+	font-size: 14px;
+	transition: background 0.3s;
+}
+
+.btn-create-tag:hover {
+	background: #f57c00;
+}
+
+.create-tag-form {
+	padding: 15px;
+	background: #f5f5f5;
+	border-radius: 4px;
+	margin-bottom: 20px;
+}
+
+.create-tag-form input,
+.create-tag-form textarea {
+	width: 100%;
+	padding: 8px 12px;
+	border: 1px solid #ddd;
+	border-radius: 4px;
+	font-size: 14px;
+	margin-bottom: 10px;
+	font-family: inherit;
+}
+
+.form-actions {
+	display: flex;
+	gap: 10px;
+}
+
+.tags-container {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: 20px;
+}
+
+.tags-list {
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+}
+
+.tag-item {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 12px;
+	border: 1px solid #e0e0e0;
+	border-radius: 4px;
+	transition: all 0.3s;
+}
+
+.tag-item:hover {
+	background: #f9f9f9;
+	border-color: #ff9800;
+}
+
+.tag-item.selected {
+	background: #fff3e0;
+	border-color: #ff9800;
+}
+
+.tag-info {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	flex: 1;
+	cursor: pointer;
+}
+
+.tag-icon {
+	color: #ff9800;
+	font-size: 18px;
+}
+
+.tag-details {
+	display: flex;
+	flex-direction: column;
+	gap: 4px;
+}
+
+.tag-name {
+	font-weight: 600;
+	color: #333;
+}
+
+.tag-commit,
+.tag-date {
+	font-size: 12px;
+	color: #666;
+}
+
+.btn-delete-tag {
+	padding: 6px 10px;
+	background: #f44336;
+	color: white;
+	border: none;
+	border-radius: 4px;
+	cursor: pointer;
+	transition: background 0.3s;
+}
+
+.btn-delete-tag:hover {
+	background: #d32f2f;
+}
+
+.tag-details-panel {
+	padding: 20px;
+	background: #f9f9f9;
+	border-radius: 4px;
+	border: 1px solid #e0e0e0;
+}
+
+.tag-details-panel h4 {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	margin-top: 0;
+	color: #333;
+}
+
+/* Loading State */
+.loading {
+	text-align: center;
+	padding: 40px;
+	color: #666;
+}
+
+/* Version Control Container */
+.version-control-container {
+	max-width: 1400px;
+	margin: 0 auto;
+	padding: 20px;
+}
+
+.vcs-header {
+	margin-bottom: 30px;
+}
+
+.vcs-header h1 {
+	margin: 0 0 10px 0;
+	color: #333;
+}
+
+.vcs-header p {
+	margin: 0;
+	color: #666;
+	font-size: 14px;
+}
+
+.vcs-tabs {
+	display: flex;
+	gap: 10px;
+	margin-bottom: 20px;
+	border-bottom: 2px solid #e0e0e0;
+}
+
+.tab-button {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	padding: 12px 24px;
+	background: none;
+	border: none;
+	border-bottom: 3px solid transparent;
+	cursor: pointer;
+	font-size: 16px;
+	color: #666;
+	transition: all 0.3s;
+	margin-bottom: -2px;
+}
+
+.tab-button:hover {
+	color: #2196f3;
+	background: #f5f5f5;
+}
+
+.tab-button.active {
+	color: #2196f3;
+	border-bottom-color: #2196f3;
+	font-weight: 600;
+}
+
+.vcs-content {
+	min-height: 400px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+	.commits-container,
+	.tags-container {
+		grid-template-columns: 1fr;
+	}
+
+	.commit-details,
+	.tag-details-panel {
+		margin-top: 20px;
+	}
+
+	.vcs-tabs {
+		overflow-x: auto;
+	}
+
+	.tab-button {
+		padding: 10px 16px;
+		font-size: 14px;
+	}
+}

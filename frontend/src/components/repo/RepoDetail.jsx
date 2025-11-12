@@ -87,6 +87,20 @@ const RepoDetail = () => {
           >
             Issues
           </button>
+          <Link to={`/vcs/${id}`} style={{ textDecoration: "none" }}>
+            <button
+              style={{
+                background: "transparent",
+                color: "#c9d1d9",
+                border: "1px solid #30363d",
+                padding: "6px 12px",
+                borderRadius: 6,
+                cursor: "pointer",
+              }}
+            >
+              Version Control
+            </button>
+          </Link>
         </div>
 
         {activeTab === "overview" && (

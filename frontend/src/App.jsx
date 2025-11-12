@@ -8,6 +8,7 @@ import Profile from "./components/user/Profile";
 import AllRepositories from "./components/repo/AllRepositories";
 import NewRepo from "./components/repo/NewRepo";
 import RepoDetail from "./components/repo/RepoDetail";
+import VersionControl from "./components/vcs/VersionControl";
 
 function AuthHandler() {
 	const { currUser, setCurrUser } = useAuth();
@@ -44,6 +45,7 @@ function App() {
 				<Route path="/user/repositories" element={<AllRepositories />} />
 				<Route path="/repo/new" element={<NewRepo />} />
 				<Route path="/repo/:id" element={<RepoDetail />} />
+				<Route path="/vcs/:repoId" element={<VersionControl />} />
 			</Routes>
 		</BrowserRouter>
 	);
